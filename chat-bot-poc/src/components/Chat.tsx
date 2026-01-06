@@ -14,15 +14,17 @@ function Chat() {
     const fetchAccounts = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:4000/api/accounts');
+        const response = await fetch('/accounts.json');
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
         const data = await response.json();
+        console.log('GET /accounts.json response:', data);
         setAccounts(data);
       } catch (err) {
         console.error(err);
-        setError('Failed to load accounts');
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        setError(`Failed to load accounts: ${message}`);
       } finally {
         setLoading(false);
       }

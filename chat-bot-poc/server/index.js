@@ -10,8 +10,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.disable('etag');
+
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
 
 const dbFilePath = path.join(__dirname, '..', 'src', 'assets', 'db.json');
 
@@ -22,7 +28,12 @@ app.get('/api/accounts', async (req, res) => {
     res.json(jsonData);
   } catch (error) {
     console.error('Error reading db.json', error);
-    res.status(500).json({ error: 'Failed to read data' });
+    res.status(500).json({
+      error: 'Failed to read data',
+      message: error instanceof Error ? error.message : String(error),
+      code: error && typeof error === 'object' && 'code' in error ? error.code : undefined,
+      path: dbFilePath,
+    });
   }
 });
 

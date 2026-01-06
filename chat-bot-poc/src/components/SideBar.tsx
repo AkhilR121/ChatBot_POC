@@ -1,7 +1,7 @@
 function SideBar() {
   return (
-    <div>
-      <h2>This is the SideBar component</h2>
+    <div className="border border-black w-[25%]">
+      <h2>SideBar component</h2>
     </div>
   );
 }

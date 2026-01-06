@@ -20,7 +20,13 @@
     },
     "numSitesNeedLOA": 0,
     "notifyOpportunityRep": false,
-    "email": null,
+    "email": {
+      "email": "akhil@nrg.com",
+      "personal_details": {
+        "name": "akh",
+        "age": "26"
+      }
+    },
     "contactId": null,
     "contactFirstName": null,
     "contactLastName": null,

@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 function ChatBotComponent() {
   return (
     <div className="flex h-screen justify-between w-screen">
-      <SideBar />
+      {/* <SideBar /> */}
       <Chat />
     </div>
   );

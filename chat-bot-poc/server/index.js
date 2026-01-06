@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 const dbFilePath = path.join(__dirname, '..', 'src', 'assets', 'db.json');
 
-app.get('/api/accounts', async (req, res) => {
+app.get('/api/customers', async (req, res) => {
   try {
     const data = await fs.readFile(dbFilePath, 'utf-8');
     const jsonData = JSON.parse(data);

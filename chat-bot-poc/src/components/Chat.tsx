@@ -7,13 +7,10 @@ type Account = {
 
 function Chat() {
   const [customers, setCustomers] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        setLoading(true);
         const response = await fetch("/accounts.json");
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
@@ -22,23 +19,24 @@ function Chat() {
         setCustomers(data);
       } catch (err) {
         console.error(err);
-        const message = err instanceof Error ? err.message : "Unknown error";
-        setError(`Failed to load accounts: ${message}`);
-      } finally {
-        setLoading(false);
+        err instanceof Error ? err.message : "Unknown error";
       }
     };
 
     fetchAccounts();
   }, []);
 
-  const columns = customers.length > 0 ? Object.keys(customers[0]) : [];
+  function getCustomerList(){
+    for (const obj of customers) {
+      return customers.length > 0 ? Object.keys(obj) : [];
+    }
+  }
 
   return (
     <div className="w-full flex flex-col bg-slate-100">
       <div className="h-full bg-white p-2 m-3 rounded-3xl overflow-y-auto">
         {customers.length > 0 &&
-          columns.map((col) => {
+          getCustomerList()?.map((col) => {
             const value = (customers[0] as any)[col];
 
             const isNestedObject =
